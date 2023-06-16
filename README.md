@@ -35,8 +35,8 @@ Ao iniciar este projeto, você concorda com as diretrizes do [Código de Conduta
   <summary>🗓 Data de Entrega</summary><br />
   
   - Este projeto é individual
-  - Serão `X` dias de projeto
-  - Data de entrega para avaliação regular do projeto: `dd/mm/yyyy - 14:00h`
+  - Serão `2` dias de projeto
+  - Data de entrega para avaliação regular do projeto: `27/06/2023 14:00`
 
 </details>
 
@@ -99,7 +99,7 @@ env $(cat .env) npm test 01 # rodando apenas o teste do requisito 01
 Ao finalizar e submeter o projeto, não se esqueça de avaliar sua experiência preenchendo o formulário.
 **Leva menos de 3 minutos!**
 
-[FORMULÁRIO DE AVALIAÇÃO DE PROJETO](https://be-trybe.typeform.com/to/ZTeR4IbH)
+[FORMULÁRIO DE AVALIAÇÃO DE PROJETO](https://be-trybe.typeform.com/to/ZTeR4IbH#cohort_hidden=CH29-A&template=betrybe/sd-0x-project-talker-manager)
 
 ## Requisitos
 
