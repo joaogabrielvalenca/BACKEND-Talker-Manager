@@ -36,7 +36,9 @@ Neste projeto você irá:
 ### Conteúdos de Soft Skills
 
 - [ ] [Reconhecendo as nossas Emoções](https://app.betrybe.com/learn/course/5e938f69-6e32-43b3-9685-c936530fd326/module/2e0692c9-e226-4e95-860a-b4cad80e3c3c/section/d041930c-2861-493a-ab7e-9f566aa90d29/day/5b748ff2-db33-4356-95c8-709c9ff40263/lesson/b9ef55ce-a2c5-411b-914b-1cbdc5a00cc5)
+- [ ] [8 dicas para fortalecer nossa inteligencia emocional](https://blog.escolaconquer.com.br/as-8-dicas-infaliveis-para-controle-emocional/)
 - [ ] [Talentos](https://app.betrybe.com/learn/course/5e938f69-6e32-43b3-9685-c936530fd326/module/2e0692c9-e226-4e95-860a-b4cad80e3c3c/section/d041930c-2861-493a-ab7e-9f566aa90d29/day/2695cf47-7499-4f7c-b91e-7f83b998476b/lesson/f3c9b5d4-8790-424b-afac-411631efd46c)
+- [ ] [Como treinar sua capacidade de foco](https://asana.com/pt/resources/stay-focused)
 
 ### Trilha de Vídeos - Projeto Missions
 
@@ -49,6 +51,11 @@ Neste projeto você irá:
 - [Projeto Mission: Middleware de Erro](https://app.betrybe.com/learn/course/5e938f69-6e32-43b3-9685-c936530fd326/module/94d0e996-1827-4fbc-bc24-c99fb592925b/section/2ed87e4f-9049-4314-8091-8f71b1925cf6/day/27d3ea73-4725-48c0-b38c-8acc4dc4d40a/lesson/8637f4e5-9ea6-4bdb-8fad-0e10384f26d9) (6m3s)
 
 🕐  Total: 1h10m20s
+
+### Material complementar
+- [Revisão da seção](https://app.betrybe.com/learn/course/5e938f69-6e32-43b3-9685-c936530fd326/live-lectures/1ad46538-81ac-40b9-8a16-1fa50743c6cf/recording/7e97068e-595b-4f7d-8f1b-06575804a25a) (59m08s)
+- [Usando variáveis de ambiente com o docker-compose](https://app.betrybe.com/learn/course/5e938f69-6e32-43b3-9685-c936530fd326/live-lectures/1ad46538-81ac-40b9-8a16-1fa50743c6cf/recording/c5db6c4b-86c6-49d5-8876-15f48a6cdd3a) (6m16s)
+- [Revisão com mind maps](https://app.betrybe.com/learn/course/5e938f69-6e32-43b3-9685-c936530fd326/live-lectures/1ad46538-81ac-40b9-8a16-1fa50743c6cf/recording/61c9565a-5655-43de-b0e1-5c7faeffa2b6) (42m01s)
 
 ## Requisitos obrigatórios do Projeto
 
