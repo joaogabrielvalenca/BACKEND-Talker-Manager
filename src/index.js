@@ -1,13 +1,12 @@
 const express = require('express');
 const fs = require('fs/promises');
-// const { isDate } = require('util');
-// const { validateName, validateAge, validateTalk, validateWatchedAt, validateRate, validateToken, validateTokenLength } = require('./validations05');
 
 const app = express();
 app.use(express.json());
 
 const PORT = process.env.PORT || '3001';
 const HTTP_OK_STATUS = 200;
+const talkerJson = 'src/talker.json';
 
 function generateToken(length) {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -18,10 +17,9 @@ function generateToken(length) {
   }
   return token;
 }
-
 app.get('/talker', async (_request, response) => {
   try {
-    const data = await fs.readFile('src/talker.json', 'utf-8');
+    const data = await fs.readFile(talkerJson, 'utf-8');
     const talkers = JSON.parse(data);
     response.status(HTTP_OK_STATUS).json(talkers);
     } catch (parseError) {
@@ -29,11 +27,10 @@ app.get('/talker', async (_request, response) => {
       response.status(404).json([]);
     }
 });
-  
 app.get('/talker/:id', async (req, res) => {
   try {
     // console.log('PARAMS', req.params);
-    const data = await fs.readFile('src/talker.json', 'utf-8');
+    const data = await fs.readFile(talkerJson, 'utf-8');
     const talkers = JSON.parse(data);
     const getTalkerById = talkers.find(({ id }) => id === Number(req.params.id));
     if (getTalkerById) {
@@ -45,12 +42,10 @@ app.get('/talker/:id', async (req, res) => {
     res.status(404).json({ message: 'Pessoa palestrante não encontrada' });
   }
 });
-
 function validateEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 }
-
 function validateEmailField(email, res) {
   if (!email || email.trim() === '') {
     return res.status(400).json({ message: 'O campo "email" é obrigatório' });
@@ -60,7 +55,6 @@ function validateEmailField(email, res) {
   }
   return true;
 }
-
 function validatePasswordField(password, res) {
   if (!password || password.trim() === '') {
     return res.status(400).json({ message: 'O campo "password" é obrigatório' });
@@ -68,10 +62,8 @@ function validatePasswordField(password, res) {
   if (password.length < 6) {
     return res.status(400).json({ message: 'O "password" deve ter pelo menos 6 caracteres' });
   }
-
   return true;
 }
-
 function validateLoginFields(req, res, next) {
   const { email, password } = req.body;
   if (
@@ -80,15 +72,12 @@ function validateLoginFields(req, res, next) {
   ) {
     return;
   }
-
   next();
 }
-
 app.post('/login', validateLoginFields, (req, res) => {
   const token = generateToken(16); 
   res.status(200).json({ token });
 });
-
 const validateToken = (token) => {
   if (!token) {
     return { valid: false, message: 'Token não encontrado' };
@@ -98,7 +87,6 @@ const validateToken = (token) => {
   }
   return { valid: true };
 };
-
 const validateName = (name) => {
   if (!name || name.trim() === '') {
     return { valid: false, message: 'O campo "name" é obrigatório' };
@@ -112,7 +100,6 @@ const validateName = (name) => {
 const validateAge = (age) => {
   const ageString = String(age); 
   console.log(ageString);
-
   if (!age) {
     return { valid: false, message: 'O campo "age" é obrigatório' };
   }
@@ -126,14 +113,12 @@ const validateAge = (age) => {
   }
   return { valid: true };
 };
-
 const validateTalk = (talk) => {
   if (!talk) {
     return { valid: false, message: 'O campo "talk" é obrigatório' };
   }
   return { valid: true };
 };
-
 const validateWatchedAt = (talk) => {
   const { watchedAt } = talk;
   if (!watchedAt) {
@@ -146,7 +131,6 @@ const validateWatchedAt = (talk) => {
   }
   return { valid: true };
 };
-
 const validateRatePresence = (rate) => {
   if (rate === undefined) {
     return { valid: false, message: 'O campo "rate" é obrigatório' };
@@ -155,13 +139,10 @@ const validateRatePresence = (rate) => {
   if (rate < 1 || rate > 5) {
     return { valid: false, message: 'O campo "rate" deve ser um número inteiro entre 1 e 5' };
   }
-
   return { valid: true };
 };
-
 const validateRateValue = (rate) => {
   const rateNumber = Number(rate);
-
   if (Number.isNaN(rateNumber)) {
     return { valid: false, message: 'O campo "rate" deve ser um número' };
   }
@@ -169,10 +150,8 @@ const validateRateValue = (rate) => {
   if (!Number.isInteger(rateNumber) || rateNumber < 1 || rateNumber > 5) {
     return { valid: false, message: 'O campo "rate" deve ser um número inteiro entre 1 e 5' };
   }
-
   return { valid: true };
 };
-
 const validateRate = (talk) => {
   const { rate } = talk;
   const presenceValidation = validateRatePresence(rate);
@@ -181,14 +160,12 @@ const validateRate = (talk) => {
   }
   return validateRateValue(rate);
 };
-
 function validateTokenLength(token, res) {
   if (!token || token.length !== 16 || typeof token !== 'string') {
     return res.status(401).json({ message: 'Token inválido' });
   }
   return true;
 }
-
 const validateTokenMiddleware = (req, res, next) => {
   const token = req.headers.authorization;
   const tokenValidation = validateToken(token);
@@ -200,10 +177,8 @@ const validateTokenMiddleware = (req, res, next) => {
   }
   next();
 };
-
 const validateTalkerFieldsMiddleware = (req, res, next) => {
   const { name, age, talk } = req.body;
-
   const validations = [
     validateName(name),
     validateAge(age),
@@ -215,14 +190,12 @@ const validateTalkerFieldsMiddleware = (req, res, next) => {
   if (invalidValidation) {
     return res.status(400).json({ message: invalidValidation.message });
   }
-
   next();
 };
-
 app.post('/talker', validateTokenMiddleware, validateTalkerFieldsMiddleware, async (req, res) => {
   const { name, age, talk } = req.body;
   const { watchedAt, rate } = talk;
-  const data = await fs.readFile('src/talker.json', 'utf-8');
+  const data = await fs.readFile(talkerJson, 'utf-8');
   const talkers = JSON.parse(data);
   const newTalker = {
     id: talkers.length + 1,
@@ -234,33 +207,38 @@ app.post('/talker', validateTokenMiddleware, validateTalkerFieldsMiddleware, asy
     },
   };
   talkers.push(newTalker);
-  await fs.writeFile('src/talker.json', JSON.stringify(talkers, null, 2));
+  await fs.writeFile(talkerJson, JSON.stringify(talkers, null, 2));
   return res.status(201).json(newTalker);
 });
-
 app.put('/talker/:id',
   validateTokenMiddleware, validateTalkerFieldsMiddleware, async (req, res) => {
-  const { id } = req.params;
-  const { name, age, talk } = req.body;
-  const data = await fs.readFile('src/talker.json', 'utf-8');
-  const talkers = JSON.parse(data);  
-  const getTalkerById = talkers.find(({ id }) => id === Number(req.params.id));
-  if (getTalkerById) {
-    getTalkerById.name = name;
-    getTalkerById.age = age;
-    getTalkerById.talk = talk;   
-    await fs.writeFile('src/talker.json', JSON.stringify(talkers, null, 2));
+    const { name, age, talk } = req.body;
+    const data = await fs.readFile(talkerJson, 'utf-8');
+    const talkers = JSON.parse(data);  
+    const getTalkerById = talkers.find(({ id }) => id === Number(req.params.id));
+    if (getTalkerById) {
+      getTalkerById.name = name;
+      getTalkerById.age = age;
+      getTalkerById.talk = talk;   
+    await fs.writeFile(talkerJson, JSON.stringify(talkers, null, 2));
   } else {
      return res.status(404).json({ message: 'Pessoa palestrante não encontrada' });
   }
   return res.status(200).json(getTalkerById);
 });
+app.delete('/talker/:id',
+  validateTokenMiddleware, validateTalkerFieldsMiddleware, async (req, res) => {
+    // const { name, age, talk } = req.body;
+    const data = await fs.readFile(talkerJson, 'utf-8');
+    const talkers = JSON.parse(data);  
+    const deleteTalkerById = talkers.filter((id) => id !== Number(req.params.id));
+    await fs.writeFile(talkers, JSON.stringify(deleteTalkerById, null, 2));
+    return res.status(204).json();
+});
 
-// não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (_request, response) => {
   response.status(HTTP_OK_STATUS).send();
 });
-
 app.listen(PORT, () => {
   console.log('Online');
 });
