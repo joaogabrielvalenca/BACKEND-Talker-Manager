@@ -227,13 +227,13 @@ app.put('/talker/:id',
   return res.status(200).json(getTalkerById);
 });
 app.delete('/talker/:id',
-  validateTokenMiddleware, validateTalkerFieldsMiddleware, async (req, res) => {
-    // const { name, age, talk } = req.body;
+  validateTokenMiddleware, async (req, res) => {
     const data = await fs.readFile(talkerJson, 'utf-8');
     const talkers = JSON.parse(data);  
-    const deleteTalkerById = talkers.filter((id) => id !== Number(req.params.id));
-    await fs.writeFile(talkers, JSON.stringify(deleteTalkerById, null, 2));
-    return res.status(204).json();
+    const deleteTalkerById = talkers.filter(({ id }) => id !== Number(req.params.id));
+    console.log(deleteTalkerById);
+    await fs.writeFile(talkerJson, JSON.stringify(deleteTalkerById, null, 2));
+    return res.status(204).end();
 });
 
 app.get('/', (_request, response) => {
