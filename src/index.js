@@ -29,7 +29,6 @@ app.get('/talker', async (_request, response) => {
 });
 app.get('/talker/:id', async (req, res) => {
   try {
-    // console.log('PARAMS', req.params);
     const data = await fs.readFile(talkerJson, 'utf-8');
     const talkers = JSON.parse(data);
     const getTalkerById = talkers.find(({ id }) => id === Number(req.params.id));
